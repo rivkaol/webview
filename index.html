@@ -177,10 +177,11 @@
         /* הערת דד-ליין מתחת לכפתור */
         .deadline-note {
             font-size: 1rem;
-            color: #d35400; /* צבע כתום-אדמדם עדין לתשומת לב */
-            margin-top: 15px;
+            color: var(--primary-light); /* שינוי לצבע ירוק רגוע ומותגי */
+            margin-top: 20px;
             font-weight: 500;
-            text-align: center; /* מירכוז הטקסט כפי שביקשת */
+            text-align: center;
+            opacity: 0.9;
         }
 
         /* הודעת תודה */
@@ -188,11 +189,25 @@
             display: none;
             text-align: center;
             padding: 20px;
+            animation: fadeIn 0.5s ease-out;
         }
+        
+        .success-message h3 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .success-message p {
+            font-size: 1.3rem;
+            color: #555;
+            line-height: 1.5;
+        }
+
         .success-icon {
             color: #25D366;
-            width: 50px; height: 50px;
-            margin-bottom: 10px;
+            width: 60px; height: 60px;
+            margin-bottom: 20px;
         }
 
         /* ספינר טעינה */
@@ -237,37 +252,40 @@
         </div>
 
         <div class="cta-box" id="ctaContainer">
-            <!-- כותרת חדשה -->
-            <h2>רוצה לבדוק מה יכול להתאים בדיוק לך?</h2>
-            
-            <!-- טקסט חדש ומזמין -->
-            <p>כל אחת מגיעה עם סיפור אחר ועם מצב שונה.<br>
-            השאירי את הפרטים שלך, ואחזור אלייך לשיחה אישית קצרה ונעימה,<br>
-            שבה נבחן יחד מה הגוף שלך צריך עכשיו,<br>
-            ומה הפתרון הטבעי שמתאים למצבך.</p>
-
-            <!-- טופס -->
-            <form id="leadForm" class="lead-form">
-                <div class="form-group">
-                    <label for="name" class="form-label">שם מלא:</label>
-                    <input type="text" id="name" class="form-input" required minlength="2">
-                </div>
+            <!-- עטפתי את כל התוכן הראשוני בדיב אחד כדי להעלים את כולו בלחיצה -->
+            <div id="initialContent">
+                <!-- כותרת חדשה -->
+                <h2>רוצה לבדוק מה יכול להתאים בדיוק לך?</h2>
                 
-                <div class="form-group">
-                    <label for="phone" class="form-label">מספר טלפון:</label>
-                    <input type="tel" id="phone" class="form-input" required pattern="[0-9]{10}" maxlength="10" title="נא להזין מספר טלפון תקין בעל 10 ספרות">
-                </div>
+                <!-- טקסט חדש ומזמין -->
+                <p>כל אחת מגיעה עם סיפור אחר ועם מצב שונה.<br>
+                השאירי את הפרטים שלך, ואחזור אלייך לשיחה אישית קצרה ונעימה,<br>
+                שבה נבחן יחד מה הגוף שלך צריך עכשיו,<br>
+                ומה הפתרון הטבעי שמתאים למצבך.</p>
 
-                <button type="submit" id="submitBtn" class="submit-btn">
-                    <span>שרייני לי שיחת התאמה</span>
-                    <div class="spinner" id="loadingSpinner"></div>
-                </button>
-                
-                <!-- הערת הדד-ליין מתחת לכפתור - ממוקמת במרכז -->
-                <div class="deadline-note">
-                    שימי לב: ההטבה המיוחדת לרוכשות הוובינר בתוקף עד יום חמישי ב-20:00
-                </div>
-            </form>
+                <!-- טופס -->
+                <form id="leadForm" class="lead-form">
+                    <div class="form-group">
+                        <label for="name" class="form-label">שם מלא:</label>
+                        <input type="text" id="name" class="form-input" required minlength="2">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">מספר טלפון:</label>
+                        <input type="tel" id="phone" class="form-input" required pattern="[0-9]{10}" maxlength="10" title="נא להזין מספר טלפון תקין בעל 10 ספרות">
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="submit-btn">
+                        <span>שרייני לי שיחת התאמה</span>
+                        <div class="spinner" id="loadingSpinner"></div>
+                    </button>
+                    
+                    <!-- הערת הדד-ליין מתחת לכפתור - ממוקמת במרכז, צבע רגוע -->
+                    <div class="deadline-note">
+                        שימי לב: ההטבה המיוחדת לרוכשות הוובינר בתוקף עד יום חמישי ב-20:00
+                    </div>
+                </form>
+            </div>
 
             <!-- הודעת תודה (מוסתרת בהתחלה) -->
             <div id="successMessage" class="success-message">
@@ -277,7 +295,6 @@
             </div>
         </div>
         
-        <!-- הוסר הפוטר -->
     </div>
 
     <script>
@@ -289,6 +306,7 @@
         const spinner = document.getElementById('loadingSpinner');
         const btnText = submitBtn.querySelector('span');
         const successMsg = document.getElementById('successMessage');
+        const initialContent = document.getElementById('initialContent');
         const webhookUrl = 'https://hook.eu2.make.com/zpp8zduagsvp8ff956ptymouvmago2m5';
 
         // ולידציה בזמן אמת - רק מספרים בטלפון
@@ -316,22 +334,30 @@
             btnText.style.opacity = '0.5';
 
             try {
+                // שימוש ב-fetch עם הגדרות CORS מפורשות
                 const response = await fetch(webhookUrl, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    mode: 'cors', // הוספתי הגדרה מפורשת
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json' 
+                    },
                     body: JSON.stringify({ name: name, phone: phone })
                 });
 
                 if (response.ok) {
-                    form.style.display = 'none';
+                    // כאן מסתירים את כל התוכן הראשוני (כותרת+טקסט+טופס)
+                    initialContent.style.display = 'none';
+                    // ומציגים רק את הודעת התודה
                     successMsg.style.display = 'block';
                 } else {
-                    alert('אירעה שגיאה בשליחת הפרטים, אנא נסי שנית.');
+                    console.error('Webhook Error Status:', response.status);
+                    alert('אירעה שגיאה בשליחת הפרטים. אנא נסי שנית או פני אלינו בוואטסאפ.');
                     submitBtn.disabled = false;
                 }
             } catch (error) {
-                console.error('Error:', error);
-                alert('אירעה שגיאת תקשורת, אנא בדקי את החיבור לאינטרנט.');
+                console.error('Fetch Error:', error);
+                alert('אירעה שגיאת תקשורת. ייתכן שיש חוסם פרסומות או בעיית רשת. אנא נסי שנית.');
                 submitBtn.disabled = false;
             } finally {
                 spinner.style.display = 'none';
@@ -339,5 +365,6 @@
             }
         });
     </script>
+<script src="https://rivkaol.github.io/legal-footer.js"></script>
 </body>
 </html>
