@@ -24,16 +24,16 @@
             font-family: 'Rubik', sans-serif;
             background-color: var(--bg);
             margin: 0;
-            padding: 20px 0; /* קצת ריווח למעלה ולמטה במובייל */
+            padding: 20px 0;
             color: var(--text);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             display: flex;
-            flex-direction: column; /* חשוב מאוד: מסדר את האלמנטים אחד מתחת לשני */
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            gap: 30px; /* מרווח בין הטופס לפוטר */
+            gap: 30px;
         }
         
         .container {
@@ -261,6 +261,7 @@
         const successMsg = document.getElementById('successMessage');
         const formContent = document.getElementById('formContent');
         
+        // הוובוק זהה לחלוטין לזה שבקובץ recording_view.html
         const webhookUrl = 'https://hook.eu2.make.com/zpp8zduagsvp8ff956ptymouvmago2m5';
 
         document.getElementById('phone').addEventListener('input', function (e) {
@@ -287,6 +288,7 @@
             btnText.style.opacity = '0.5';
 
             try {
+                // שימוש באותו מבנה נתונים בדיוק (name, phone) ללא שדות נוספים
                 const response = await fetch(webhookUrl, {
                     method: 'POST',
                     mode: 'cors',
@@ -294,7 +296,7 @@
                         'Content-Type': 'application/json',
                         'Accept': 'application/json' 
                     },
-                    body: JSON.stringify({ name: name, phone: phone, source: 'webinar_discount_page' })
+                    body: JSON.stringify({ name: name, phone: phone })
                 });
 
                 if (response.ok) {
