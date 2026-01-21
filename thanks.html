@@ -24,26 +24,28 @@
             font-family: 'Rubik', sans-serif;
             background-color: var(--bg);
             margin: 0;
-            padding: 0;
+            padding: 20px 0; /* קצת ריווח למעלה ולמטה במובייל */
             color: var(--text);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             display: flex;
+            flex-direction: column; /* חשוב מאוד: מסדר את האלמנטים אחד מתחת לשני */
             align-items: center;
             justify-content: center;
             min-height: 100vh;
+            gap: 30px; /* מרווח בין הטופס לפוטר */
         }
         
         .container {
-            max-width: 600px; /* החזרתי לרוחב המקורי והרחב יותר */
+            max-width: 600px;
             width: 100%;
-            padding: 20px;
+            padding: 0 20px;
         }
         
         /* הקופסה הראשית */
         .card {
             background: var(--white);
-            padding: 40px; /* החזרתי לריווח המקורי */
+            padding: 40px;
             border-radius: 24px;
             text-align: center;
             border: 1px solid rgba(212, 175, 55, 0.2);
@@ -51,6 +53,7 @@
             position: relative;
             overflow: hidden;
             animation: fadeIn 0.8s ease-out;
+            width: 100%;
         }
         
         /* פס עליון */
@@ -81,7 +84,7 @@
         .highlight-box .deadline {
             display: block;
             font-weight: 700;
-            color: var(--primary); /* שונה לכתום לירוק המותגי */
+            color: var(--primary);
             font-size: 1.2rem;
             margin-bottom: 5px;
         }
@@ -312,6 +315,8 @@
             }
         });
     </script>
-<script src="https://rivkaol.github.io/legal-footer.js"></script>
+    
+    <!-- Legal Footer -->
+    <script src="https://rivkaol.github.io/legal-footer.js"></script>
 </body>
 </html>
